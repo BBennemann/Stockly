@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import Header from '../components/Header';
+import RNPickerSelect from 'react-native-picker-select';
+import { insertProduto } from '../database';
 
 const Form = ({ voltar }) => {
   const [nome, setNome] = useState('');
   const [categoria, setCategoria] = useState('');
+  const [imagem, setImagem] = useState('');
   const [quantidade, setQuantidade] = useState('');
 
-  const salvar = () => {
-    if (!nome || !categoria || !quantidade) {
+
+  const salvar = async () => {
+    if (!nome || !categoria || !imagem || !quantidade) {
       Alert.alert('Erro', 'Preencha todos os campos!');
       return;
     }
 
-    // Aqui você pode salvar o produto em um estado global, banco ou apenas exibir
-    console.log('Produto criado:', {
-      nome,
-      categoria,
-      quantidade: Number(quantidade),
-    });
-
-    Alert.alert('Produto criado com sucesso!');
-    voltar(); // volta para tela anterior (Home)
+    const sucesso = await insertProduto(nome, categoria, imagem, Number(quantidade));
+    if (sucesso) {
+      Alert.alert('Produto salvo com sucesso!');
+      voltar();
+    } else {
+      Alert.alert('Erro ao salvar o produto.');
+    }
   };
 
   return (
@@ -33,27 +35,43 @@ const Form = ({ voltar }) => {
 
         <TextInput
           style={styles.input}
+          placeholderTextColor={'#999'}
           placeholder="Nome"
           value={nome}
           onChangeText={setNome}
         />
 
+        <View style={styles.dropdownWrapper}>
+          <RNPickerSelect
+            onValueChange={(value) => setCategoria(value)}
+            placeholder={{ label: 'Selecione uma categoria...', value: null }}
+            items={[
+              { label: 'Alimento', value: 'alimento' },
+              { label: 'Bebida', value: 'bebida' },
+              { label: 'Limpeza', value: 'limpeza' },
+            ]}
+            style={{
+              inputAndroid: styles.dropdownText,
+              inputIOS: styles.dropdownText,
+              placeholder: {
+                color: '#999',
+              },
+            }}
+            value={categoria}
+          />
+        </View>
+
         <TextInput
           style={styles.input}
-          placeholder="Categoria"
-          value={categoria}
-          onChangeText={setCategoria}
+          placeholderTextColor={'#999'}
+          placeholder="Imagem (URL ou descrição)"
+          value={imagem}
+          onChangeText={setImagem}
         />
 
         <TextInput
           style={styles.input}
-          placeholder="Imagem"
-          value={categoria}
-          onChangeText={setCategoria}
-        />
-
-        <TextInput
-          style={styles.input}
+          placeholderTextColor={'#999'}
           placeholder="Quantidade"
           value={quantidade}
           onChangeText={setQuantidade}
@@ -107,6 +125,20 @@ const styles = StyleSheet.create({
     color: '#1C1C1C',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  dropdownWrapper: {
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#CCC',
+    height: 50, // mesma altura dos inputs
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+  },
+  dropdownText: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
