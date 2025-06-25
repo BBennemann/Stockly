@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import Header from '../components/Header';
 import { getProdutos, createTable } from '../database';
 
 const Home = ({ setTela, refresh }) => {
   const [produtos, setProdutos] = useState([]);
+  const [pesquisa, setPesquisa] = useState("");
+  const [mostrarBusca, setMostrarBusca] = useState(false);
 
   useEffect(() => {
     const carregar = async () => {
@@ -23,13 +25,27 @@ const Home = ({ setTela, refresh }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#2E2E2E' }}>
-      <Header />
+
+      <Header onSearchPress={() => setMostrarBusca(!mostrarBusca)}/>
+
+      {mostrarBusca && (
+        <TextInput
+          style={styles.campoBusca}
+          placeholder="Filtrar por categoria..."
+          placeholderTextColor="#ccc"
+          value={pesquisa}
+          onChangeText={setPesquisa}
+        />
+      )}
+      
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 10 }}>
         {Array.isArray(produtos) && produtos.length === 0 ? (
           <Text style={styles.vazio}>Nenhum produto cadastrado.</Text>
         ) : (
           Array.isArray(produtos) &&
-          produtos.map((produto) => (
+          produtos
+          .filter(p => p.categoria.toLowerCase().includes(pesquisa.toLowerCase()))
+          .map((produto) => (
             <ProductCard
               key={produto.id}
               id={produto.id}
@@ -52,6 +68,14 @@ const Home = ({ setTela, refresh }) => {
 };
 
 const styles = StyleSheet.create({
+  campoBusca: {
+    backgroundColor: '#1C1C1C',
+    color: '#fff',
+    padding: 10,
+    margin: 10,
+    borderRadius: 8,
+    fontSize: 16,
+  },
   fab: {
     position: 'absolute',
     right: 20,

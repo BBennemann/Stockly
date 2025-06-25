@@ -12,7 +12,7 @@ const Form = ({ voltar }) => {
 
 
   const salvar = async () => {
-    if (!nome || !categoria || !imagem || !quantidade) {
+    if (!nome || !categoria || !quantidade) {
       Alert.alert('Erro', 'Preencha todos os campos!');
       return;
     }
@@ -46,9 +46,12 @@ const Form = ({ voltar }) => {
             onValueChange={(value) => setCategoria(value)}
             placeholder={{ label: 'Selecione uma categoria...', value: null }}
             items={[
-              { label: 'Alimento', value: 'alimento' },
-              { label: 'Bebida', value: 'bebida' },
-              { label: 'Limpeza', value: 'limpeza' },
+              { label: 'Taça', value: 'Taça' },
+              { label: 'Copo', value: 'Copo' },
+              { label: 'Bebida', value: 'Bebida' },
+              { label: 'Lata', value: 'Lata' },
+              { label: 'Vestuario', value: 'Vestuario' },
+              { label: 'Growler', value: 'Growler' },
             ]}
             style={{
               inputAndroid: styles.dropdownText,
@@ -64,7 +67,7 @@ const Form = ({ voltar }) => {
         <TextInput
           style={styles.input}
           placeholderTextColor={'#999'}
-          placeholder="Imagem (URL ou descrição)"
+          placeholder="ImagemURL(Opcional)"
           value={imagem}
           onChangeText={setImagem}
         />

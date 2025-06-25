@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from "react-native"
 import Feather from 'react-native-vector-icons/Feather';
 
-export default function Header() {
+export default function Header({onSearchPress}) {
     return(
         <SafeAreaView style={styles.container}>
           <TouchableOpacity style={styles.iconBottom}>
@@ -17,7 +17,7 @@ export default function Header() {
             />
           </View>
 
-          <TouchableOpacity style={styles.iconBottom}>
+          <TouchableOpacity style={styles.iconBottom} onPress={onSearchPress}>
             <Feather name="search" size={25} color="#fff" />
           </TouchableOpacity>
         </SafeAreaView>

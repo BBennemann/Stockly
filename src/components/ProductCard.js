@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { updateProduto, deleteProduto } from '../database';
 import Feather from 'react-native-vector-icons/Feather';
 
+const imagemPadrao = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkAAnwe0aHOuifwhWGL66L-anpHl8390C4zA&s";
+
 const ProductCard = ({id, nome, categoria, quantidade, imagem, onDelete }) => {
   const [qtd, setQuantidade] = useState(() => quantidade);
+  const [imagemUrl, setImagemUrl] = useState(imagem || imagemPadrao);
+  const [carregouImagem, setCarregouImagem] = useState(false);
+
+  // Depois de 3 segundos, se a imagem não carregou, assume imagem padrão
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!carregouImagem) {
+        setImagemUrl(imagemPadrao);
+      }
+    }, 3000); // 3 segundos
+
+    return () => clearTimeout(timeout);
+  }, [imagem]);
 
   return (
     <View style={styles.card}>
@@ -35,9 +50,14 @@ const ProductCard = ({id, nome, categoria, quantidade, imagem, onDelete }) => {
 
       <View style={styles.imagemView}>
         <Image 
-          source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkAAnwe0aHOuifwhWGL66L-anpHl8390C4zA&s" }} 
-          style={styles.imagem} 
+          source={{ uri: imagemUrl }}
+          style={styles.imagem}
           resizeMode="cover"
+          onLoad={() => setCarregouImagem(true)} // marca como carregada
+          onError={() => {
+            setImagemUrl(imagemPadrao);
+            setCarregouImagem(false);
+          }}
         />
       </View>
       <View style={styles.prod}>
@@ -95,7 +115,7 @@ function Botao({ text, funcao }) {
 
 const styles = StyleSheet.create({
   card: {
-    height: 200,
+    height: 180,
     width: '100%',
     borderRadius: 15,
     flexDirection: 'row',
@@ -119,7 +139,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   texto: {
-    fontSize: 20
+    fontSize: 18
   },
   imagem: {
     flex: 0.8,
