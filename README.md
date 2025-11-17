@@ -1,97 +1,88 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Stockly - Bar Inventory Prototype
 
-# Getting Started
+[![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactnative.dev/)
+[![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![Status](https://img.shields.io/badge/status-unfinished-yellow?style=for-the-badge)]()
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## About The Project
 
-## Step 1: Start Metro
+This project is a prototype for **Stockly**, a mobile inventory control application. It was originally designed for a local bar with the goal of helping the manager organize their inventory and move away from confusing spreadsheets.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+This application was developed as a university assignment for a Mobile Development course.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+As the project was not finalized, its current state serves as a demonstration of fundamental React Native concepts:
+* Component-based structure (`Header`, `ProductCard`).
+* Screen navigation (between the list and the form).
+* Local data persistence using **SQLite**.
+* A complete **CRUD** (Create, Read, Update, Delete) workflow for managing products.
 
-```sh
-# Using npm
-npm start
+### Built With
+* [React Native](https://reactnative.dev/)
+* [React Native SQLite Storage](https://github.com/andpor/react-native-sqlite-storage)
+* [React Native Picker Select](https://github.com/lawnstarter/react-native-picker-select)
+* [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 
-# OR using Yarn
-yarn start
-```
+## Project Features
 
-## Step 2: Build and run your app
+* **View All Products:** A home screen that lists all products from the local database.
+* **Create Products:** A form screen to add new products (name, category, quantity) to the inventory.
+* **Update Quantities:** Users can increment or decrement the stock quantity directly from the product card on the home screen.
+* **Delete Products:** Products can be deleted from the database.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Getting Started
 
-### Android
+To get a local copy up and running, follow these simple steps.
 
-```sh
-# Using npm
-npm run android
+### Prerequisites
 
-# OR using Yarn
-yarn android
-```
+* [Node.js](https://nodejs.org/) (v18 or newer)
+* [Yarn](https://yarnpkg.com/) (recommended) or npm
+* [React Native environment setup](https://reactnative.dev/docs/environment-setup) (Android Studio / Xcode)
 
-### iOS
+### Installation
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/BBennemann/Stockly.git](https://github.com/BBennemann/Stockly.git)
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd Stockly
+    ```
+3.  Install NPM packages:
+    ```bash
+    npm install
+    ```
+    *or*
+    ```bash
+    yarn install
+    ```
+4.  For **iOS**, install the Pods:
+    ```bash
+    cd ios && pod install && cd ..
+    ```
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## Usage Instructions
 
-```sh
-bundle install
-```
+Once the installation is complete, you can run the application on an emulator or a physical device.
 
-Then, and every time you update your native dependencies, run:
+1.  **Start the Metro Server:**
+    ```bash
+    npm start
+    ```
+2.  **Run on Android:**
+    (In a new terminal)
+    ```bash
+    npm run android
+    ```
+3.  **Run on iOS:**
+    (In a new terminal)
+    ```bash
+    npm run ios
+    ```
 
-```sh
-bundle exec pod install
-```
+The app will open with the **Home** screen, displaying any registered products. You can press the `+` button to navigate to the **Form** screen and add new items to the inventory.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Contributors
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+* **Bernardo Thomas Bennemann** - *Project Owner* - [BBennemann](https://github.com/BBennemann)
